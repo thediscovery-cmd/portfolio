@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrew Yeoman — Senior EUC Engineer</title>
+<meta name="description" content="Andrew Yeoman — Senior End User Computing Engineer. I turn manual IT environments into modern, automated endpoint platforms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Public+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --bg-alt: #eaeef4;
+    --paper: #ffffff;
+    --ink: #0f1e33;
+    --ink-2: #34455e;
+    --muted: #6b7a91;
+    --line: #c8d3e2;
+    --line-soft: #dde4ee;
+    --blue: #1a4b8c;
+    --blue-2: #2e6ab8;
+    --blue-soft: #e8eff8;
+    --accent: #ff6b3d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Public Sans', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(rgba(26,75,140,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,75,140,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: -1px -1px;
+  }
+
+  ::selection { background: var(--blue); color: white; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+  }
+
+  /* Vertical spine */
+  .spine {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(calc(-540px + 2rem));
+    width: 1px;
+    background: linear-gradient(180deg, transparent, var(--line) 5%, var(--line) 95%, transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+  @media (max-width: 1120px) {
+    .spine { transform: translateX(-50vw); left: 2rem; }
+  }
+
+  /* Header */
+  header {
+    padding: 4rem 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .meta::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(255,107,61,0.15);
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    max-width: 22ch;
+  }
+  h1 .accent {
+    color: var(--blue);
+    font-weight: 700;
+  }
+  .subhead {
+    font-size: 1.15rem;
+    color: var(--ink-2);
+    max-width: 60ch;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .location {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .location svg { width: 12px; height: 12px; opacity: 0.6; }
+
+  /* Section headers */
+  section {
+    padding: 5rem 0;
+    position: relative;
+    z-index: 2;
+  }
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--blue);
+  }
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+    max-width: 26ch;
+  }
+
+  /* What I do */
+  .capabilities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .cap {
+    background: var(--paper);
+    padding: 1.75rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .cap:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .cap-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--blue);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  .cap h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+  .cap p {
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+
+  /* Career (the spine section) */
+  .timeline {
+    position: relative;
+  }
+  .stop {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2.5rem;
+    padding: 2rem 0 2.5rem;
+    position: relative;
+    align-items: start;
+  }
+  .stop::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 2.5rem;
+    width: 16px;
+    height: 16px;
+    background: var(--paper);
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+  }
+  .stop::after {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 3.2rem;
+    width: 2rem;
+    height: 1px;
+    background: var(--line);
+    transform: translateX(-50%);
+  }
+  .stop:first-child::before {
+    background: var(--blue);
+    box-shadow: 0 0 0 4px rgba(26,75,140,0.15);
+  }
+  .stop-when {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    padding-top: 0.4rem;
+  }
+  .stop-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.01em;
+  }
+  .stop-where {
+    font-size: 0.95rem;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+  }
+  .stop-body {
+    font-size: 0.98rem;
+    color: var(--ink-2);
+    line-height: 1.65;
+    max-width: 62ch;
+  }
+  .stop-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 100px;
+    background: var(--paper);
+  }
+  @media (max-width: 720px) {
+    .stop { grid-template-columns: 1fr; gap: 0.5rem; }
+    .stop::before, .stop::after { display: none; }
+    .stop-when { padding-top: 0; margin-bottom: 0.4rem; }
+  }
+
+  /* Projects */
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .proj {
+    background: var(--paper);
+    padding: 1.85rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .proj:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .proj-num {
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--line);
+    letter-spacing: 0.05em;
+  }
+  .proj h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.9rem;
+    letter-spacing: -0.01em;
+    padding-right: 3rem;
+  }
+  .proj-outcome {
+    font-size: 0.95rem;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+  .proj-stack {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
+    letter-spacing: 0.02em;
+  }
+
+  /* Certs */
+  .certs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+  .cert {
+    background: var(--paper);
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink);
+  }
+  .cert-status {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .cert-status.in-progress { color: var(--accent); }
+
+  /* Contact */
+  .contact {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+  }
+  .contact h2 { margin-bottom: 0.5rem; }
+  .contact p { color: var(--ink-2); max-width: 45ch; }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+  }
+  .contact-links a {
+    color: var(--blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    transition: color 0.15s;
+  }
+  .contact-links a:hover { color: var(--accent); }
+  .contact-links a::before {
+    content: '→';
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  .contact-links a:hover::before {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+  @media (max-width: 720px) {
+    .contact { grid-template-columns: 1fr; padding: 2rem; }
+  }
+
+  /* Footer */
+  footer {
+    padding: 3rem 0 4rem;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    position: relative;
+    z-index: 2;
+  }
+  footer .rule {
+    width: 60px;
+    height: 1px;
+    background: var(--line);
+    margin: 0 auto 1.5rem;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="spine" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <header>
+    <div class="meta">Available — open to Principal / Cloud Architect roles</div>
+    <h1>Modern <span class="accent">endpoint platforms</span>, built with automation-first infrastructure.</h1>
+    <p class="subhead">Senior End User Computing Engineer. I take manual IT environments and turn them into automated, cloud-managed platforms — from Autopilot enrollment to runbook-driven remediation, at multi-thousand-endpoint scale.</p>
+    <div class="location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Fitchburg, Wisconsin
+    </div>
+  </header>
+
+  <section id="capabilities" class="reveal">
+    <div class="section-label">What I do</div>
+    <h2>Four capability areas, one common thread: fewer manual steps.</h2>
+    <div class="capabilities">
+      <div class="cap">
+        <div class="cap-num">01 / Endpoint Management</div>
+        <h3>Cloud-managed device fleets</h3>
+        <p>Intune, Autopilot, Entra ID, Jamf. Zero-touch enrollment, compliance policy design, and lifecycle automation for Windows and macOS at scale.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-num">02 / Automation</div>
+        <h3>PowerShell, Graph, runbooks</h3>
+        <p>Azure Automation, Power Automate, and Microsoft Graph. Building the systems that fix things without a ticket ever being opened.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-num">03 / Internal tooling</div>
+        <h3>SPFx, React, Power Platform</h3>
+        <p>Self-service catalogs, approval flows, and internal apps that replace ticket queues with buttons employees can press themselves.</p>
+      </div>
+      <div class="cap">
+        <div class="cap-num">04 / Infrastructure</div>
+        <h3>Azure, Linux, homelab-grade DIY</h3>
+        <p>Docker, DNS, Tailscale, reverse proxies, Azure Automation. If it runs on Linux or in Azure, I've probably broken and rebuilt it in my own lab.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="career" class="reveal">
+    <div class="section-label">Where I've been</div>
+    <h2>Every stop has been a bigger fleet and a broader mandate.</h2>
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-when">2026 — Present</div>
+        <div>
+          <div class="stop-role">Senior EUC Engineer</div>
+          <div class="stop-where">Springs Window Fashions · Middleton, WI</div>
+          <div class="stop-body">Managing ~3,500 Intune-enrolled endpoints across nine sites. Delivered a full SPFx React self-service software catalog, an Azure Automation "prevention fleet" runbook that auto-remediates proactive detections, and an end-to-end new-hire onboarding runbook — all inside the first 90 days.</div>
+          <div class="stop-tags">
+            <span class="tag">Intune</span><span class="tag">Entra ID</span><span class="tag">SPFx / React</span><span class="tag">Azure Automation</span><span class="tag">Power Automate</span><span class="tag">Graph API</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-when">2022 — 2026</div>
+        <div>
+          <div class="stop-role">EUC Engineer · four promotions in four years</div>
+          <div class="stop-where">Sub-Zero Group · Madison, WI</div>
+          <div class="stop-body">Built the Intune environment largely from scratch — zero-touch Autopilot enrollment across ~4,500 endpoints, macOS via Jamf, EAP-TLS Wi-Fi with Cloud PKI, and an application portfolio from nothing. Owned migrations, printer-to-Intune bulk pipelines, and hybrid Azure AD Join repair tooling. Left as senior IC across the endpoint stack.</div>
+          <div class="stop-tags">
+            <span class="tag">Intune from zero</span><span class="tag">Autopilot</span><span class="tag">Jamf</span><span class="tag">PowerShell / WPF</span><span class="tag">Pester</span><span class="tag">ADCS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-when">Earlier</div>
+        <div>
+          <div class="stop-role">Helpdesk → EUC roots</div>
+          <div class="stop-where">Where the fundamentals were learned</div>
+          <div class="stop-body">The years that made the rest possible. Tickets, imaging benches, GPO rabbit holes, and the pattern-recognition that comes from seeing a thousand endpoints break in a thousand different ways.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="projects" class="reveal">
+    <div class="section-label">Selected projects</div>
+    <h2>Things I've shipped. Outcome first, tech underneath.</h2>
+    <div class="projects">
+
+      <div class="proj">
+        <div class="proj-num">01</div>
+        <h3>Self-service software catalog</h3>
+        <p class="proj-outcome">Replaced a ticket-driven software request process with a SharePoint-native React catalog. Employees browse titles, request installs, and license groups auto-assign on approval. Tenant-agnostic and portable across sites.</p>
+        <div class="proj-stack">SPFx · React · TypeScript · Power Automate · Graph</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">02</div>
+        <h3>Proactive remediation "prevention fleet"</h3>
+        <p class="proj-outcome">An Azure Automation runbook wired to a SharePoint flags list. Two-pass architecture: trigger on-demand Intune remediations at scale, then harvest results. Fleet-level self-healing without human-in-the-loop.</p>
+        <div class="proj-stack">Azure Automation · Graph API · PowerShell · SharePoint</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">03</div>
+        <h3>New-hire onboarding runbook</h3>
+        <p class="proj-outcome">Hybrid-aware PowerShell runbook that ingests KACE ticket data, maps locations to OUs, resolves specialty software groups, handles mirror access, and flags manual routing for D365 and Keyscan.</p>
+        <div class="proj-stack">PowerShell · Graph · Active Directory · KACE</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">04</div>
+        <h3>Intune environment from zero</h3>
+        <p class="proj-outcome">Stood up cloud endpoint management from scratch across ~4,500 devices. Autopilot enrollment, EAP-TLS certificate Wi-Fi, macOS via Jamf, and a Win32 app portfolio grown from nothing to hundreds of packaged applications.</p>
+        <div class="proj-stack">Intune · Autopilot · Jamf · Cloud PKI · PowerShell</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">05</div>
+        <h3>ITSM service catalog web part</h3>
+        <p class="proj-outcome">A React SPFx web part rendering an IT service catalog with drill-down tiles, status alerts, and quick links. Config-driven from five SharePoint lists — no HTML edits to change what the catalog shows.</p>
+        <div class="proj-stack">SPFx 1.20 · React 17 · TypeScript · SharePoint</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-num">06</div>
+        <h3>Homelab as second production</h3>
+        <p class="proj-outcome">A running lab across five hosts: Dell R720xd, Synology NAS, Raspberry Pi 5, and a workstation with local LLM inference. Pi-hole, Nginx Proxy Manager, Tailscale, WoL proxy, Open WebUI, self-hosted ARK cluster. The place I try things before I try them at work.</p>
+        <div class="proj-stack">Docker · Linux · Tailscale · Ollama · DNS</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="certs" class="reveal">
+    <div class="section-label">Certifications</div>
+    <h2>Where the paper says the same thing the work does.</h2>
+    <div class="certs">
+      <div class="cert"><span>AZ-104</span><span class="cert-status in-progress">In Progress</span></div>
+      <div class="cert"><span>CCFE</span><span class="cert-status">Certified</span></div>
+      <div class="cert"><span>CMFE</span><span class="cert-status">Certified</span></div>
+      <div class="cert"><span>Network+</span><span class="cert-status">Certified</span></div>
+      <div class="cert"><span>A+</span><span class="cert-status">Certified</span></div>
+      <div class="cert"><span>CompTIA CSIS</span><span class="cert-status">Certified</span></div>
+      <div class="cert"><span>CompTIA CIOS</span><span class="cert-status">Certified</span></div>
+      <div class="cert"><span>LPI Linux Essentials</span><span class="cert-status">Certified</span></div>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <div class="section-label">Get in touch</div>
+    <div class="contact">
+      <div>
+        <h2>Let's talk.</h2>
+        <p>I'm open to Principal Cloud / EUC Architect conversations, and to work at organizations building things that matter — infrastructure, security, or the mission itself.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:andrew@yeoman.engineer">andrew@yeoman.engineer</a>
+        <a href="https://www.linkedin.com/in/andrew-yeoman" target="_blank" rel="noopener">linkedin.com/in/andrew-yeoman</a>
+        <a href="https://github.com/thediscovery-cmd" target="_blank" rel="noopener">github.com/thediscovery-cmd</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="rule"></div>
+    Built by hand · Fitchburg, WI · yeoman.engineer
+  </footer>
+
+</div>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
