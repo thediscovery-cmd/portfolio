@@ -3,10 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H3082PM7L"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H3082PM7L"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied',
+      'wait_for_update': 500
+    });
+
     gtag('js', new Date());
     gtag('config', 'G-9H3082PM7L');
   </script>
@@ -468,6 +477,97 @@ p{color:var(--ink-soft);}
   });
 })();
 </script>
+  <!-- Consent banner -->
+<div id="consent-banner">
+  <p>
+    This site uses Google Analytics to understand traffic. No data is
+    collected until you accept. <span class="cb-mono">// your call</span>
+  </p>
+  <div class="cb-actions">
+    <button id="cb-decline" onclick="declineConsent()">Decline</button>
+    <button id="cb-accept" onclick="acceptConsent()">Accept</button>
+  </div>
+</div>
+
+<style>
+  #consent-banner {
+    display: none;
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(680px, calc(100% - 2rem));
+    z-index: 9999;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: #0d1b2a;
+    border: 1px solid #1b3a5b;
+    border-top: 2px solid #f5a623;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+    font-family: 'Public Sans', system-ui, sans-serif;
+  }
+  #consent-banner p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #c9d6e3;
+  }
+  #consent-banner .cb-mono {
+    font-family: 'IBM Plex Mono', monospace;
+    color: #4a90d9;
+    font-size: 0.78rem;
+  }
+  .cb-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+  #consent-banner button {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+  }
+  #cb-accept { background: #f5a623; color: #0d1b2a; }
+  #cb-accept:hover { background: #ffb941; }
+  #cb-decline {
+    background: transparent;
+    color: #c9d6e3;
+    border-color: #1b3a5b;
+  }
+  #cb-decline:hover { border-color: #4a90d9; color: #fff; }
+  @media (max-width: 520px) {
+    #consent-banner { flex-direction: column; align-items: stretch; }
+    .cb-actions button { flex: 1; }
+  }
+</style>
+
+<script>
+  (function () {
+    var choice = localStorage.getItem('ga-consent');
+    if (choice === 'granted') {
+      gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    } else if (!choice) {
+      document.getElementById('consent-banner').style.display = 'flex';
+    }
+    // 'denied' -> stays denied, no banner shown
+  })();
+
+  function acceptConsent() {
+    gtag('consent', 'update', { 'analytics_storage': 'granted' });
+    localStorage.setItem('ga-consent', 'granted');
+    document.getElementById('consent-banner').style.display = 'none';
+  }
+
+  function declineConsent() {
+    localStorage.setItem('ga-consent', 'denied');
+    document.getElementById('consent-banner').style.display = 'none';
+  }
+</script>
+
 
 </body>
 </html>
